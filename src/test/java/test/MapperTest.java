@@ -3,7 +3,6 @@ package test;
 import com.alibaba.fastjson.JSON;
 import com.wk.spring.JpaConfig;
 import com.wk.spring.entity.ProvinceEntity;
-import com.wk.spring.entity.UserEntity;
 import com.wk.spring.service.ProvinceService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +12,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Date;
 
 /**
  * PackageName test
@@ -24,17 +25,18 @@ import org.springframework.test.context.junit4.SpringRunner;
 @ContextConfiguration(classes = {JpaConfig.class})
 @SpringBootTest
 public class MapperTest {
-//    @Autowired
-//    private UserService userService;
     @Autowired
     private ProvinceService provinceService;
     @Test
     public void testInsert()throws Exception{
-        UserEntity en = new UserEntity();
-        en.setName("wk111");
-        en.setAge(19);
-        en.setSex(0);
-//        userService.insert(en);
+        ProvinceEntity entity = new ProvinceEntity();
+        entity.setName("wangkang01");
+        entity.setDescrib("kkkkkkk");
+        entity.setEnabled(2);
+        entity.setOperator("insert");
+        entity.setInsertTime(new Date());
+        entity.setLastupdateTime(new Date());
+        provinceService.insert(entity);
     }
     @Test
     public void testGet()throws Exception{
@@ -45,5 +47,10 @@ public class MapperTest {
         }else {
             System.out.println("empty string!");
         }
+    }
+    @Test
+    public void testGetCount() throws Exception{
+        int count = provinceService.getCount();
+        System.out.println("count: " + count);
     }
 }

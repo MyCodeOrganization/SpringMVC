@@ -2,9 +2,7 @@ package com.wk.spring.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.wk.spring.entity.ProvinceEntity;
-import com.wk.spring.entity.UserEntity;
 import com.wk.spring.service.ProvinceService;
-import com.wk.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,12 +36,7 @@ public class IndexController {
     @ResponseBody
     @RequestMapping("/userinfo")
     public String userinfo(){
-        UserEntity user = new UserEntity();
-        user.setId(123456l);
-        user.setAge(18);
-        user.setName("wangkang");
-        user.setSex(1);
-        return JSON.toJSONString(user);
+        return "info";
     }
     @ResponseBody
     @RequestMapping("/indexview")

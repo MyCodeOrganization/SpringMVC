@@ -18,4 +18,15 @@ public class ProvinceService {
     public ProvinceEntity getEntityById(long id){
         return provinceMapper.selectByPrimaryKey(id);
     }
+
+    public void insert(ProvinceEntity entity){
+        provinceMapper.insert(entity);
+    }
+
+    public int getCount(){
+        return provinceMapper.getCount();
+    }
+
+
+
 }

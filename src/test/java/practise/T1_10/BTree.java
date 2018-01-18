@@ -1,6 +1,7 @@
-package practise;
+package practise.T1_10;
 
 /**
+ * 问题：二元查找树转化为双向链表
  * PackageName practise
  * Created by wangkang on 2018/1/17.
  */

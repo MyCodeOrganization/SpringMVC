@@ -1,4 +1,4 @@
-package practise;
+package practise.T1_10;
 
 /**
  * 定义一个栈，使这个栈的pop push min的时间复杂度为1

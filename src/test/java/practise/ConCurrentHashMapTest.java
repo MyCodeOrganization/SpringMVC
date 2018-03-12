@@ -1,9 +1,12 @@
 package practise;
 
+import com.sun.javafx.collections.MappingChange;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
 
 import static com.sun.xml.internal.fastinfoset.util.ValueArray.MAXIMUM_CAPACITY;
 
@@ -17,30 +20,42 @@ public class ConCurrentHashMapTest {
     }
 
     private static void testConCurrentHashMap(){
+        final CountDownLatch countDownLatch = new CountDownLatch(2);
         final Map<Integer,Integer> map = new ConcurrentHashMap<>();
         Thread t1 = new Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i=0;i < 10;i++){
+                for (int i=0;i<100;i++){
                     Random r = new Random();
                     Integer v = r.nextInt();
                     map.put(i,v);
                 }
+                countDownLatch.countDown();
             }
         });
         Thread t2 = new Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i=200;i<210;i++){
+                for (int i=200;i<300;i++){
                     Random r = new Random();
                     Integer v = r.nextInt();
                     map.put(i,v);
                 }
+                countDownLatch.countDown();
             }
         });
         t1.start();
         t2.start();
-        while (Thread.activeCount() > 20);
+        try {
+            countDownLatch.await();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        for (Map.Entry<Integer,Integer> entry : map.entrySet()){
+            System.out.println("k=" + entry.getKey() + "   v=" + entry.getValue());
+        }
+        System.out.println("complete!");
+        System.exit(0);
     }
     private static void testSingleThread(){
         Map<String,String> map1 = new HashMap<>();
@@ -88,8 +103,15 @@ public class ConCurrentHashMapTest {
     public static void main(String[] args) {
 //        int ncpu = getNCPU();
 //        System.out.println("ncpu: " + ncpu);
+        //testConCurrentHashMap();
         //testSingleThread();
         //SingleTestString();
+        for (int i = 0;i < 10;i++){
+            int v = (int)Math.pow(2,i);
+            int n = Integer.numberOfLeadingZeros(v);
+            System.out.println("v="+ v + "   n=" + n );
+        }
+
         System.exit(0);
     }
 }
